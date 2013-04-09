@@ -6,7 +6,22 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fxmvc</name>
 	<description>fxmvc</description>
-
+	<build>
+	 	<outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!-- 没有定义的话会输出到jar包中 -->
+				<targetPath>${basedir}/src/main/webapp/WEB-INF/classes</targetPath>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<excludes>
+				</excludes>
+			</resource>
+		</resources>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -48,6 +63,12 @@
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis-spring</artifactId>
 		    <version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
