@@ -1,4 +1,4 @@
-package com.dream.mybatis.interceptor;
+package com.eden.mybatis.interceptor;
 
 import java.sql.Connection;
 import java.util.Properties;
@@ -15,8 +15,8 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.RowBounds;
 
-import com.dream.mybatis.dialect.Dialect;
-import com.dream.mybatis.dialect.DialectFactory;
+import com.eden.mybatis.dialect.Dialect;
+import com.eden.mybatis.dialect.DialectFactory;
 
 @Intercepts({
 		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })

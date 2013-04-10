@@ -1,4 +1,4 @@
-package com.dream.mybatis.dialect;
+package com.eden.mybatis.dialect;
 
 
 

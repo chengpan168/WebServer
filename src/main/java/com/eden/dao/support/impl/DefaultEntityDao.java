@@ -1,10 +1,13 @@
-package com.dream.dao.support.impl;
+package com.eden.dao.support.impl;
 
 import javax.annotation.Resource;
 
-import com.dream.dao.support.DaoService;
-import com.dream.dao.support.EntityDao;
+import org.springframework.stereotype.Repository;
 
+import com.eden.dao.support.DaoService;
+import com.eden.dao.support.EntityDao;
+
+@Repository("entityDao")
 public class DefaultEntityDao implements EntityDao{
 	
 	@Resource

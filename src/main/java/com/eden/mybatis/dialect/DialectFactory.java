@@ -1,9 +1,9 @@
-package com.dream.mybatis.dialect;
+package com.eden.mybatis.dialect;
 
 
 import org.apache.commons.lang.StringUtils;
 
-import com.dream.mybatis.dialect.Dialect.Dialect_type;
+import com.eden.mybatis.dialect.Dialect.Dialect_type;
 
 public class DialectFactory {
 	private static Dialect dialect ;
