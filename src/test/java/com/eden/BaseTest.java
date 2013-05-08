@@ -1,14 +1,12 @@
-package com.dream;
+package com.eden;
 
-import org.junit.Test;
 
 public class BaseTest {
 	public static void main(String[] args) {
 		System.out.println("hello") ; 
 	}
 	
-	@Test
-	public void testA(){
-		System.out.println("hello test") ;
+	public static void print(Object obj){
+		System.out.println(obj) ;
 	}
 }
