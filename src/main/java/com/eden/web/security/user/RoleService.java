@@ -1,8 +1,7 @@
-package com.eden.web.security;
+package com.eden.web.security.user;
 
 import java.util.List;
 
-import com.eden.web.security.user.Role;
 
 public interface RoleService {
 	public List<Role> getRoleByPath(String path) ;

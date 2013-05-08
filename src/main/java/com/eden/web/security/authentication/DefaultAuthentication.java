@@ -1,4 +1,4 @@
-package com.eden.web.security;
+package com.eden.web.security.authentication;
 
 import java.util.List;
 
@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 import com.eden.constant.WSConstant;
 import com.eden.util.ConvertUtil;
 import com.eden.util.CryptoUtil;
+import com.eden.web.security.ResourceService;
 import com.eden.web.security.user.Role;
+import com.eden.web.security.user.RoleService;
 import com.eden.web.security.user.UserDetail;
 import com.eden.web.security.user.UserDetailService;
 
@@ -42,7 +44,10 @@ public class DefaultAuthentication implements Authentication{
 			token = ConvertUtil.convert(session.getAttribute(SESSION_TOKEN_KEY) );
 		}
 		if(token == null) {
-			getUserDetailFromCookie(req) ;
+			UserDetail userDetail = getUserDetailFromCookie(req) ;
+			if(userDetailService.hasUserDetail(userDetail)){
+				
+			}
 		}
 		String userName = null ;
 		if(userName == null) return false ;

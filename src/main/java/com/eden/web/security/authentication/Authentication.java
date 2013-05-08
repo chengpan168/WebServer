@@ -1,4 +1,4 @@
-package com.eden.web.security;
+package com.eden.web.security.authentication;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
