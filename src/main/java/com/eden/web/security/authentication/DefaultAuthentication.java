@@ -1,7 +1,6 @@
 package com.eden.web.security.authentication;
 
-import java.util.List;
-
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -9,31 +8,18 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.eden.constant.WSConstant;
 import com.eden.util.ConvertUtil;
 import com.eden.util.CryptoUtil;
-import com.eden.web.security.ResourceService;
-import com.eden.web.security.user.Role;
-import com.eden.web.security.user.RoleService;
+import com.eden.web.security.SecurityContext;
 import com.eden.web.security.user.UserDetail;
 import com.eden.web.security.user.UserDetailService;
 
 public class DefaultAuthentication implements Authentication{
 	
-	private boolean alwaysUseDefaultTarget = false ;
-	private String defaultTargetUrl ;
-	private String loginUrl = "/login" ;
-	private String loginSuccessUrl ;
-	private String loginFailUrl ;
-	private String logoutUrl = "/logout" ;
-	private String logoutSuccessUrl  ;
-	//认证失败路转的url
-	private String authenticateFailUrl ;
-	private boolean isRemeber = true ;
-	
+	@Resource
+	private SecurityContext securityContext ;
+	@Resource
 	private UserDetailService userDetailService ;
-	private RoleService roleService ;
-	private ResourceService resourceService ;
 	
 	@Override
 	public boolean authenticate(ServletRequest req , ServletResponse res , FilterChain chain) {
@@ -41,32 +27,23 @@ public class DefaultAuthentication implements Authentication{
 		HttpSession session = httpServletRequest.getSession(false) ;
 		String token = null ;
 		if(session != null){
-			token = ConvertUtil.convert(session.getAttribute(SESSION_TOKEN_KEY) );
+			token = ConvertUtil.convert2Str(session.getAttribute(SESSION_TOKEN_KEY) );
 		}
 		if(token == null) {
 			UserDetail userDetail = getUserDetailFromCookie(req) ;
-			if(userDetailService.hasUserDetail(userDetail)){
+			if(userDetailService.authenticate(userDetail) == 1){
 				
 			}
 		}
-		String userName = null ;
-		if(userName == null) return false ;
+		return false ;
 		
-		List<Role> roleUser = roleService.getRoleByUserName(userName) ;
-		List<Role> rolePath = roleService.getRoleByPath(httpServletRequest.getRequestURI()) ;
-		
-		for(Role role : roleUser){
-			if(rolePath.contains(role)) return true ;
-		}
-		
-		return false;
 	}
 	
 	public UserDetail getUserDetailFromCookie(ServletRequest req){
 		HttpServletRequest httpRequest = (HttpServletRequest) req ;
 		Cookie[] cookies = httpRequest.getCookies() ;
 		for(Cookie cookie : cookies){
-			if(cookie.getName().equals(WSConstant.COOKIE_USER_KEY)){
+			if(cookie.getName().equals(securityContext.getCookieUserKey())){
 				String[] userEncryStrArr = cookie.getValue().split("-") ;
 				if(userEncryStrArr != null && userEncryStrArr.length == 2) {
 					String userNameEncry = userEncryStrArr[0] ;
@@ -83,49 +60,22 @@ public class DefaultAuthentication implements Authentication{
 		}
 		return null ;
 	}
+
+	public SecurityContext getSecurityContext() {
+		return securityContext;
+	}
+
+	public void setSecurityContext(SecurityContext securityContext) {
+		this.securityContext = securityContext;
+	}
+
+	public UserDetailService getUserDetailService() {
+		return userDetailService;
+	}
+
+	public void setUserDetailService(UserDetailService userDetailService) {
+		this.userDetailService = userDetailService;
+	}
 	
-	
-	public boolean isAlwaysUseDefaultTarget() {
-		return alwaysUseDefaultTarget;
-	}
-	public void setAlwaysUseDefaultTarget(boolean alwaysUseDefaultTarget) {
-		this.alwaysUseDefaultTarget = alwaysUseDefaultTarget;
-	}
-	public String getDefaultTargetUrl() {
-		return defaultTargetUrl;
-	}
-	public void setDefaultTargetUrl(String defaultTargetUrl) {
-		this.defaultTargetUrl = defaultTargetUrl;
-	}
-	public String getLoginUrl() {
-		return loginUrl;
-	}
-	public void setLoginUrl(String loginUrl) {
-		this.loginUrl = loginUrl;
-	}
-	public String getLoginSuccessUrl() {
-		return loginSuccessUrl;
-	}
-	public void setLoginSuccessUrl(String loginSuccessUrl) {
-		this.loginSuccessUrl = loginSuccessUrl;
-	}
-	public String getLoginFailUrl() {
-		return loginFailUrl;
-	}
-	public void setLoginFailUrl(String loginFailUrl) {
-		this.loginFailUrl = loginFailUrl;
-	}
-	public String getLogoutUrl() {
-		return logoutUrl;
-	}
-	public void setLogoutUrl(String logoutUrl) {
-		this.logoutUrl = logoutUrl;
-	}
-	public String getLogoutSuccessUrl() {
-		return logoutSuccessUrl;
-	}
-	public void setLogoutSuccessUrl(String logoutSuccessUrl) {
-		this.logoutSuccessUrl = logoutSuccessUrl;
-	}
 
 }

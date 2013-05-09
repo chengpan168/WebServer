@@ -10,6 +10,7 @@ import javax.crypto.KeyGenerator;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang.StringUtils;
 
 public class CryptoUtil {
 	private static final String secKey = "pi*$d k3?#fs34,.!]";
@@ -41,6 +42,7 @@ public class CryptoUtil {
 	}
 	
 	public String encryptAES(String content){
+		if(StringUtils.isBlank(content)) return null ;
 		try {
 			byte[] data = (content.getBytes()) ;
 			return new String(encryptAES(data) , defaultCharset) ;
@@ -61,6 +63,7 @@ public class CryptoUtil {
 	}
 	
 	public String decryptAES(String content){
+		if(StringUtils.isBlank(content)) return null ;
 		try {
 			return new String(decryptAES(content.getBytes(defaultCharset)) , defaultCharset);
 		} catch (Exception e) {
@@ -80,6 +83,7 @@ public class CryptoUtil {
 	}
 	
 	public String encryptDES(String content){
+		if(StringUtils.isBlank(content)) return null ;
 		try{
 			return Base64.encodeBase64String(encryptDES(content.getBytes(defaultCharset))) ;
 		} catch(Exception e) {
@@ -88,6 +92,7 @@ public class CryptoUtil {
 		}
 	}
 	public String decryptDES(String content){
+		if(StringUtils.isBlank(content)) return null ;
 		try{
 			return new String(decryptDES(Base64.decodeBase64(content.getBytes(defaultCharset))) , defaultCharset) ;
 		} catch(Exception e) {

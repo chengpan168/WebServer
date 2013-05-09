@@ -13,7 +13,8 @@ public class CryptoTest extends BaseTest{
 		try {
 			String encryStr = CryptoUtil.getInstance().encryptAES(data) ;
 			print( encryStr) ;
-			print(new  String(CryptoUtil.getInstance().decryptAES(encryStr)) ) ;
+			print(new  String(CryptoUtil.getInstance().decryptAES("d5kECYO2wAZjW72+DXyBNA==")) ) ;
+			print(new  String(CryptoUtil.getInstance().decryptAES("Pleju+qIHqGDCV2BD8TH1w=")) ) ;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

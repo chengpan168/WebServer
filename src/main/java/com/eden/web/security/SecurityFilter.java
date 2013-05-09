@@ -13,10 +13,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.eden.log.Log;
+import com.eden.web.security.authentication.Authentication;
 
 public class SecurityFilter implements Filter {
-	
-	private ApplicationContext applicationContext ;
+	private Authentication authentication ;
 	
 	@Override
 	public void destroy() {
@@ -25,16 +25,18 @@ public class SecurityFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
-
+		authentication.authenticate(req, res, chain) ;
 	}
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext()) ;
+		ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext()) ;
 		if(applicationContext == null ) {
 			Log.error("con't find spring applicationContext check you app") ;
 			throw new RuntimeException("con't find spring applicationContext check you app") ;
 		}
+		
+		authentication = (Authentication) applicationContext.getBean("authentication") ;
 	}
 
 }
