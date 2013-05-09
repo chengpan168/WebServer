@@ -6,16 +6,19 @@ import javax.servlet.http.HttpServletResponse;
 
 public class WebUtil {
 	
-	public static void setCookie(HttpServletRequest request , String name , String value) {
+	public static void setCookie(HttpServletRequest request , HttpServletResponse response , String name , String value) {
 		if(request == null) return ;
 		Cookie[] cookies = request.getCookies() ;
 		if(cookies == null) return ;
 		for(Cookie cookie : cookies ) {
 			if(cookie.getName().equals(name)) {
 				cookie.setValue(value) ;
-				break ;
+				response.addCookie(cookie) ;
+				return ;
 			}
 		}
+		Cookie cookie = new Cookie(name, value) ;
+		response.addCookie(cookie) ;
 	}
 	
 	public static String getCookie(HttpServletRequest request , String name) {
@@ -30,13 +33,14 @@ public class WebUtil {
 		return null ;
 	}
 	
-	public static void removeCookie(HttpServletRequest request , HttpServletResponse response , String name) {
+	public static void removeCookie(HttpServletRequest request , HttpServletResponse response , String name , String path) {
 		if(request == null) return ;
 		Cookie[] cookies = request.getCookies() ;
 		if(cookies == null) return ;
 		for(Cookie cookie : cookies ) {
 			if(cookie.getName().equals(name)) {
 				cookie.setValue(null) ;
+				cookie.setPath("/");
 				cookie.setMaxAge(0) ;
 				response.addCookie(cookie) ;
 				break;

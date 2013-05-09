@@ -16,8 +16,9 @@ import com.eden.log.Log;
 import com.eden.web.security.authentication.Authentication;
 
 public class SecurityFilter implements Filter {
-	private Authentication authentication ;
 	
+	private Authentication authentication ;
+	private String interceptorPath ;
 	@Override
 	public void destroy() {
 	}
@@ -35,7 +36,6 @@ public class SecurityFilter implements Filter {
 			Log.error("con't find spring applicationContext check you app") ;
 			throw new RuntimeException("con't find spring applicationContext check you app") ;
 		}
-		
 		authentication = (Authentication) applicationContext.getBean("authentication") ;
 	}
 

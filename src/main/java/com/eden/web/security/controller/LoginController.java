@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.eden.log.Log;
 import com.eden.util.ConvertUtil;
@@ -31,7 +30,7 @@ public class LoginController {
 	
 	@RequestMapping("/loginPage")
 	public String loginPage(){
-		return securityContext.getLoginPageUrl() ;
+		return "redirect:" + securityContext.getLoginPageUrl() ;
 	}
 	/**
 	 * 
@@ -55,9 +54,8 @@ public class LoginController {
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request , HttpServletResponse response , HttpSession session) {
 		session.removeAttribute(securityContext.getSessionTokenKey()) ;
-		WebUtil.removeCookie(request , response, securityContext.getCookieUserKey() ) ;
-		
-		return "forward:" +  securityContext.getLogoutSuccessUrl() ;
+		WebUtil.removeCookie(request , response, securityContext.getCookieUserKey() , "/" ) ;
+		return "redirect:" + securityContext.getLogoutSuccessUrl() ;
 	}
 	
 	public void putUser2SessionAndCookie(HttpServletRequest request , HttpServletResponse response , String userName , String password , boolean isRemeberme){

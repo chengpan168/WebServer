@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.eden.BaseTest;
+import com.eden.web.security.user.UserDetail;
 
 public class UtilTest extends BaseTest{
 	@Test
@@ -24,5 +25,13 @@ public class UtilTest extends BaseTest{
 		for(int i : a){
 			print(i) ;
 		}
+	}
+	
+	@Test
+	public  void testJson(){
+		UserDetail userDetail = new UserDetail() ;
+		userDetail.setUserName("hello") ;
+		print(JsonUtil.toJson(userDetail)) ;
+		print(JsonUtil.fromJson(JsonUtil.toJson(userDetail) , UserDetail.class) ) ;
 	}
 }

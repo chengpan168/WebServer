@@ -42,7 +42,7 @@ public class CryptoUtil {
 	}
 	
 	public String encryptAES(String content){
-		if(StringUtils.isBlank(content)) return null ;
+		if(StringUtils.isBlank(content)) return "" ;
 		try {
 			byte[] data = (content.getBytes()) ;
 			return new String(encryptAES(data) , defaultCharset) ;
@@ -63,7 +63,7 @@ public class CryptoUtil {
 	}
 	
 	public String decryptAES(String content){
-		if(StringUtils.isBlank(content)) return null ;
+		if(StringUtils.isBlank(content)) return "" ;
 		try {
 			return new String(decryptAES(content.getBytes(defaultCharset)) , defaultCharset);
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class CryptoUtil {
 	}
 	
 	public String encryptDES(String content){
-		if(StringUtils.isBlank(content)) return null ;
+		if(StringUtils.isBlank(content)) return "" ;
 		try{
 			return Base64.encodeBase64String(encryptDES(content.getBytes(defaultCharset))) ;
 		} catch(Exception e) {
@@ -92,7 +92,7 @@ public class CryptoUtil {
 		}
 	}
 	public String decryptDES(String content){
-		if(StringUtils.isBlank(content)) return null ;
+		if(StringUtils.isBlank(content)) return "" ;
 		try{
 			return new String(decryptDES(Base64.decodeBase64(content.getBytes(defaultCharset))) , defaultCharset) ;
 		} catch(Exception e) {

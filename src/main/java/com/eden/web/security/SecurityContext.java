@@ -1,10 +1,10 @@
 package com.eden.web.security;
 
 public class SecurityContext {
-	/*
-	 * 用于保存用户信息的cookie 中的  name
-	 */
+//	 用于保存用户信息的cookie 中的  name
 	private String cookieUserKey = "user" ;
+	private String sessionUserKey = "user" ;
+	private String sessionTokenKey = "session_user_token" ;
 	
 	private boolean alwaysUseDefaultTarget = false ;
 	private String defaultTargetUrl = "/index.jsp" ;
@@ -12,17 +12,19 @@ public class SecurityContext {
 	private String loginSuccessUrl ;
 	private String loginFailUrl = "/login.jsp";
 	private String logoutUrl = "/action/logout" ;
-	private String logoutSuccessUrl = "/action/loginPage"  ;
+	private String logoutSuccessUrl = "/login.jsp"  ;
 	private String loginPageUrl = "/login.jsp" ;
 	//认证失败路转的url
-	private String authenticateFailUrl ;
+	private String authenticateFailUrl = "/login.jsp" ;
 	//is remeber user in cookie
 	private boolean isRemeber = true ;
 	//the time of the cookie which save user info
 	private int remeberTime = 15 * 24 * 60 * 60;
 	
-	private String sessionTokenKey = "session_user_token" ;
 	
+	
+	
+//	----------------------------------------------------------------------------------------
 	public boolean isAlwaysUseDefaultTarget() {
 		return alwaysUseDefaultTarget;
 	}
@@ -101,6 +103,11 @@ public class SecurityContext {
 	public void setLoginPageUrl(String loginPageUrl) {
 		this.loginPageUrl = loginPageUrl;
 	}
-	
+	public String getSessionUserKey() {
+		return sessionUserKey;
+	}
+	public void setSessionUserKey(String sessionUserKey) {
+		this.sessionUserKey = sessionUserKey;
+	}
 	
 }

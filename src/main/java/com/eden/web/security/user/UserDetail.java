@@ -1,6 +1,7 @@
 package com.eden.web.security.user;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -9,7 +10,7 @@ public class UserDetail implements Serializable {
 	private String password;
 	private boolean isEnable;
 	private boolean isExpire;
-	
+	private List<Role> roles ;
 	
 	public String getUserName() {
 		return userName;
@@ -23,6 +24,12 @@ public class UserDetail implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 	public boolean isEnable() {
 		return isEnable;
 	}
@@ -35,6 +42,11 @@ public class UserDetail implements Serializable {
 	public void setExpire(boolean isExpire) {
 		this.isExpire = isExpire;
 	}
-
+	@Override
+	public String toString() {
+		return "UserDetail [userName=" + userName + ", password=" + password
+				+ ", isEnable=" + isEnable + ", isExpire=" + isExpire
+				+ ", roles=" + roles + "]";
+	}
 
 }
