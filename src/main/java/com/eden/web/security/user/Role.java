@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Role implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	private int roleId ;
 	private String roleName ;
 
 	public String getRoleName() {
@@ -29,5 +30,13 @@ public class Role implements Serializable{
 	@Override
 	public int hashCode() {
 		return roleName.hashCode();
+	}
+
+	public int getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 }

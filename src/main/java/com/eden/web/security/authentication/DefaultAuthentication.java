@@ -1,5 +1,7 @@
 package com.eden.web.security.authentication;
 
+import java.security.acl.Permission;
+
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
@@ -44,18 +46,19 @@ public class DefaultAuthentication implements Authentication {
 		
 		String requestUri = httpRequest.getRequestURI(); 
 		try {
-			//not filter login logout url
+			//not filter login logout url and exclude url
 			if (securityContext.getLoginUrl().equals(requestUri)
 					|| securityContext.getLogoutUrl().equals(requestUri) 
 					|| ArrayUtils.contains(exclude, requestUri) ) {
 				isPass =  true ;
-			}  else {
+			}  
+//			check the user has Permission 
+			else {
 				HttpSession session = httpRequest.getSession(false);
 				UserDetail userDetail = null ;
 				if(session != null){
 					userDetail = (UserDetail)session.getAttribute(securityContext.getSessionUserKey()) ;
 				}
-				
 				//if no user in session , try to get it from cookie and check it
 				if(userDetail == null) {
 					userDetail = getUserDetailFromCookie(req);
@@ -63,15 +66,21 @@ public class DefaultAuthentication implements Authentication {
 					//if not login , redirect to the authenticate fail url 
 					if (userDetail == null || userDetailService.authenticate(userDetail) != 1) {
 						isPass = false ;
-						httpResponse.sendRedirect(securityContext.getAuthenticateFailUrl()) ;
 					}
 				} 
+				
 //				check user has permission to access this url 
 				else {
-					chain.doFilter(req, res) ;
+					isPass = true ;
 				}
 				
 				
+			}
+			
+			if(isPass){
+				chain.doFilter(req, res) ;
+			} else {
+				httpResponse.sendRedirect(securityContext.getAuthenticateFailUrl()) ;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

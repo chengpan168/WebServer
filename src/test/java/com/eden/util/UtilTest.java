@@ -1,10 +1,13 @@
 package com.eden.util;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
 import com.eden.BaseTest;
+import com.eden.web.security.user.Role;
 import com.eden.web.security.user.UserDetail;
 
 public class UtilTest extends BaseTest{
@@ -31,7 +34,27 @@ public class UtilTest extends BaseTest{
 	public  void testJson(){
 		UserDetail userDetail = new UserDetail() ;
 		userDetail.setUserName("hello") ;
+		userDetail.setEnable(true) ;
+		Role role1 = new Role() , role2 = new Role() ;
+		role1.setRoleName("admin") ;role2.setRoleName("user") ;
+		userDetail.setRoles(Arrays.asList(role1, role2)) ;
 		print(JsonUtil.toJson(userDetail)) ;
 		print(JsonUtil.fromJson(JsonUtil.toJson(userDetail) , UserDetail.class) ) ;
+	}
+	
+	@Test
+	public void testRegex(){
+		long start = System.currentTimeMillis() ;
+		Pattern pattern = Pattern.compile("/action/.*") ;
+		for(int i = 0 ; i < 100000 ; i++) {
+			Pattern.compile("/action/.*").matcher("/action/json").matches() ;
+		}
+		print("spend:" + (System.currentTimeMillis() - start) + " ms") ;
+	}
+	
+	@Test
+	public void testMyReg(){
+		String patter = "/action**" ;
+		
 	}
 }
