@@ -5,18 +5,30 @@ import java.util.List;
 
 public class UserDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private String userName;
+	
+	private int id ;
+	private String name;
 	private String password;
 	private boolean isEnable;
 	private boolean isExpire;
 	private List<Role> roles ;
 	
-	public String getUserName() {
-		return userName;
+	public int getId() {
+		return id;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public UserDetail() {}
+	public UserDetail(String userName, String password2) {
+		this.name = userName ;
+		this.password = password2 ;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String userName) {
+		this.name = userName;
 	}
 	public String getPassword() {
 		return password;
@@ -44,7 +56,7 @@ public class UserDetail implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "UserDetail [userName=" + userName + ", password=" + password
+		return "UserDetail [userName=" + name + ", password=" + password
 				+ ", isEnable=" + isEnable + ", isExpire=" + isExpire
 				+ ", roles=" + roles + "]";
 	}

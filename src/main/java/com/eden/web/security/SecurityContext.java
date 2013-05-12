@@ -5,7 +5,14 @@ public class SecurityContext {
 	private String cookieUserKey = "user" ;
 	private String sessionUserKey = "user" ;
 	private String sessionTokenKey = "session_user_token" ;
+	private String loginStatusKey = "login_status" ;
 	
+	public String getLoginStatusKey() {
+		return loginStatusKey;
+	}
+	public void setLoginStatusKey(String loginStatusKey) {
+		this.loginStatusKey = loginStatusKey;
+	}
 	private boolean alwaysUseDefaultTarget = false ;
 	private String defaultTargetUrl = "/index.jsp" ;
 	private String loginUrl = "/action/login" ;

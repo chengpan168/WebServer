@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class Role implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private int roleId ;
-	private String roleName ;
+	private int id ;
+	private String name ;
 
-	public String getRoleName() {
-		return roleName;
+	public String getName() {
+		return name;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setName(String roleName) {
+		this.name = roleName;
 	}
 	
 	
@@ -22,21 +22,21 @@ public class Role implements Serializable{
 		if(obj == null) return false ;
 		else if(!(obj instanceof Role)) return false ;
 		else{
-			return roleName.equals(((Role)obj).getRoleName()) ;
+			return name.equals(((Role)obj).getName()) ;
 		}
 		
 	}
 	
 	@Override
 	public int hashCode() {
-		return roleName.hashCode();
+		return name.hashCode();
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public int getId() {
+		return id;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setId(int roleId) {
+		this.id = roleId;
 	}
 }
