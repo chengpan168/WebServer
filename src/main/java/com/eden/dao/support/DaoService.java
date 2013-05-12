@@ -33,8 +33,6 @@ public interface DaoService {
 
 	public <T> T selectOne(String statementId, Object param);
 
-	public <T> T selectOne(Class<T> entityClass, Serializable id);
-
 	public <T> List<T> selectList(String statementId);
 	
 	public <T> List<T> selectList(String statementId , Object param);
@@ -45,15 +43,11 @@ public interface DaoService {
 	
 	public <T> List<T> selectPage(String statementId , Page page) ;
 	
-	public long selectCount(String statementId , Page page) ;
+	public int selectCount(String statementId , Page page) ;
 
-	public <T> T query(String sql);
-	
 /*------------------------------------------------分隔线---------------------------------------------------*/
 	
 	public int insert(String statement);
-
-	public <T> int insert(T o);
 
 	public int insert(String statementId, Object param);
 
@@ -61,16 +55,11 @@ public interface DaoService {
 
 	/*------------------------------------------------分隔线---------------------------------------------------*/
 	
-	public <T> int update(T o);
-
 	public int update(String statementId, Object parameters);
 
 	public int updateAll(String statementId, Collection<? extends Object> params);
 
 	/*------------------------------------------------分隔线---------------------------------------------------*/
-	public <T> int deleteById(Class<T> entityClass, Serializable id);
-
-	public <T> int delete(T o);
 
 	public int delete(String statementId, Object param);
 

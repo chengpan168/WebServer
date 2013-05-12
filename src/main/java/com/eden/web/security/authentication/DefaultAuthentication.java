@@ -1,6 +1,7 @@
 package com.eden.web.security.authentication;
 
-import java.security.acl.Permission;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
@@ -11,11 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 
-import com.eden.util.ConvertUtil;
 import com.eden.util.CryptoUtil;
+import com.eden.util.JsonUtil;
 import com.eden.web.security.SecurityContext;
+import com.eden.web.security.resource.ResourceService;
+import com.eden.web.security.user.Role;
 import com.eden.web.security.user.UserDetail;
 import com.eden.web.security.user.UserDetailService;
 
@@ -25,8 +29,10 @@ public class DefaultAuthentication implements Authentication {
 	private SecurityContext securityContext;
 	@Resource
 	private UserDetailService userDetailService;
+	@Resource
+	private ResourceService resourceService ;
 
-	private String[] exclude ;
+	private String[] exclude ={};
 	
 	public String[] getExclude() {
 		return exclude;
@@ -64,16 +70,34 @@ public class DefaultAuthentication implements Authentication {
 					userDetail = getUserDetailFromCookie(req);
 					
 					//if not login , redirect to the authenticate fail url 
-					if (userDetail == null || userDetailService.authenticate(userDetail) != 1) {
+					AuthenticationResult authenticationResult = userDetailService.authenticate(userDetail) ;
+					if (authenticationResult.getStatus()  != 1) {
 						isPass = false ;
 					}
-				} 
-				
 //				check user has permission to access this url 
-				else {
-					isPass = true ;
-				}
-				
+					else {
+						boolean isAdmin = false ;
+						if(userDetail.getRoles() != null ){
+							for(Role role : userDetail.getRoles() ) {
+								if(role.getId() == 0) {
+									isAdmin = true ;
+									isPass = true ;
+									break ;
+								}
+							} }
+						if(!isAdmin){
+							List<com.eden.web.security.resource.Resource> resources = resourceService.getResourceByRole(userDetail.getRoles()) ;
+							if(!CollectionUtils.isNotEmpty(resources)){
+								for(com.eden.web.security.resource.Resource resource : resources) {
+									if(Pattern.matches(resource.getUrl(), requestUri) ){
+										isPass = true ;
+										break ;
+									}
+								}
+							}
+						}
+					}
+				} 
 				
 			}
 			
@@ -92,20 +116,12 @@ public class DefaultAuthentication implements Authentication {
 	public UserDetail getUserDetailFromCookie(ServletRequest req) {
 		HttpServletRequest httpRequest = (HttpServletRequest) req;
 		Cookie[] cookies = httpRequest.getCookies();
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals(securityContext.getCookieUserKey())) {
-				String[] userEncryStrArr = cookie.getValue().split("-");
-				if (userEncryStrArr != null && userEncryStrArr.length == 2) {
-					String userNameEncry = userEncryStrArr[0];
-					String passwordEncry = userEncryStrArr[1];
-
-					String userNameDecry = CryptoUtil.getInstance().decryptAES(
-							userNameEncry);
-					String passwordDecry = CryptoUtil.getInstance().decryptAES(
-							passwordEncry);
-					UserDetail userDetail = new UserDetail();
-					userDetail.setUserName(userNameDecry);
-					userDetail.setPassword(passwordDecry);
+		if(cookies != null ) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(securityContext.getCookieUserKey())) {
+					String userJsonEncry = cookie.getValue() ;
+					String userJsonDecry = CryptoUtil.getInstance().decryptAES(userJsonEncry) ;
+					UserDetail userDetail = JsonUtil.fromJson( userJsonDecry , UserDetail.class );
 					return userDetail;
 				}
 			}

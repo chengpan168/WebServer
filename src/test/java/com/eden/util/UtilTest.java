@@ -33,10 +33,10 @@ public class UtilTest extends BaseTest{
 	@Test
 	public  void testJson(){
 		UserDetail userDetail = new UserDetail() ;
-		userDetail.setUserName("hello") ;
+		userDetail.setName("hello") ;
 		userDetail.setEnable(true) ;
 		Role role1 = new Role() , role2 = new Role() ;
-		role1.setRoleName("admin") ;role2.setRoleName("user") ;
+		role1.setName("admin") ;role2.setName("user") ;
 		userDetail.setRoles(Arrays.asList(role1, role2)) ;
 		print(JsonUtil.toJson(userDetail)) ;
 		print(JsonUtil.fromJson(JsonUtil.toJson(userDetail) , UserDetail.class) ) ;
@@ -56,5 +56,10 @@ public class UtilTest extends BaseTest{
 	public void testMyReg(){
 		String patter = "/action**" ;
 		
+	}
+	
+	@Test
+	public void testDigit(){
+		print( (0xF0 & -123) >>> 4 ) ;
 	}
 }

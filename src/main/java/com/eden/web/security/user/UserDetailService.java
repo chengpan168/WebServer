@@ -1,5 +1,7 @@
 package com.eden.web.security.user;
 
+import com.eden.web.security.authentication.AuthenticationResult;
+
 public interface UserDetailService {
 	public UserDetail getUserDetail(String userName) ;
 	
@@ -16,7 +18,7 @@ public interface UserDetailService {
 	 *  4：用户过期
 	 *  5：账户禁用
 	 */
-	public int authenticate(String userName, String password);
+	public AuthenticationResult authenticate(String userName, String password);
 
 	/**
 	 * 
@@ -30,6 +32,6 @@ public interface UserDetailService {
 	 *  4：用户过期
 	 *  5：账户禁用
 	 */
-	public int authenticate(UserDetail userDetail);
+	public AuthenticationResult authenticate(UserDetail userDetail);
 
 }

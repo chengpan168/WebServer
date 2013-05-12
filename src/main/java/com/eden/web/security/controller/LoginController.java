@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.eden.log.Log;
 import com.eden.util.ConvertUtil;
 import com.eden.util.CryptoUtil;
+import com.eden.util.JsonUtil;
 import com.eden.util.RandomUtil;
 import com.eden.util.WebUtil;
 import com.eden.web.security.SecurityContext;
+import com.eden.web.security.authentication.AuthenticationResult;
+import com.eden.web.security.user.UserDetail;
 import com.eden.web.security.user.UserDetailService;
 
 @Controller
@@ -43,9 +46,11 @@ public class LoginController {
 	public String login(ServletRequest request , ServletResponse response 
 			, @RequestParam(required=false) String userName , @RequestParam(required=false) String password , @RequestParam(required=false) String remeberMe){
 		Log.info("userName:" + userName + " ; password:" + password + "remeberMe:" + remeberMe) ;
-		if(userDetailService.authenticate(userName , password) == 1){
-			putUser2SessionAndCookie((HttpServletRequest)request , (HttpServletResponse)response , userName , password ,  ConvertUtil.convert2Boolean(remeberMe , false) ) ;
+		AuthenticationResult authenticationResult = userDetailService.authenticate(userName , password) ;
+		if(authenticationResult.getStatus() == 1){
+			putUser2SessionAndCookie((HttpServletRequest)request , (HttpServletResponse)response , authenticationResult.getUserDetail() ,  ConvertUtil.convert2Boolean(remeberMe , false) ) ;
 		} else {
+			request.setAttribute(securityContext.getLoginStatusKey(), authenticationResult.getStatus() ) ;
 			return "forward:" + securityContext.getLoginFailUrl() ;
 		}
 		return "redirect:" + securityContext.getDefaultTargetUrl() ;
@@ -58,10 +63,11 @@ public class LoginController {
 		return "redirect:" + securityContext.getLogoutSuccessUrl() ;
 	}
 	
-	public void putUser2SessionAndCookie(HttpServletRequest request , HttpServletResponse response , String userName , String password , boolean isRemeberme){
+	public void putUser2SessionAndCookie(HttpServletRequest request , HttpServletResponse response , UserDetail userDetail , boolean isRemeberme){
 		HttpSession session = request.getSession() ;
 		session.setAttribute(securityContext.getSessionTokenKey(), RandomUtil.UUID()) ;
-		String value = CryptoUtil.getInstance().encryptAES(userName) + "-" + CryptoUtil.getInstance().encryptAES(password) ;
+		String value = CryptoUtil.getInstance().encryptAES(JsonUtil.toJson(userDetail) ) ;
+		System.out.println(value) ;
 		Cookie userCookie = new Cookie(securityContext.getCookieUserKey(), value) ;
 		userCookie.setPath("/") ;
 		if(isRemeberme){

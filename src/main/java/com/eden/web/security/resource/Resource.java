@@ -5,7 +5,7 @@ import java.util.List;
 import com.eden.web.security.user.Role;
 
 public class Resource {
-	private int resourceId ;
+	private int id ;
 	private int parentId ;
 	private String url ;
 	private int isShow ;
@@ -13,11 +13,11 @@ public class Resource {
 	private List<Role> roles ;
 	
 	
-	public int getResourceId() {
-		return resourceId;
+	public int getId() {
+		return id;
 	}
-	public void setResourceId(int resourceId) {
-		this.resourceId = resourceId;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getParentId() {
 		return parentId;
