@@ -66,8 +66,8 @@ public class LoginController {
 	public void putUser2SessionAndCookie(HttpServletRequest request , HttpServletResponse response , UserDetail userDetail , boolean isRemeberme){
 		HttpSession session = request.getSession() ;
 		session.setAttribute(securityContext.getSessionTokenKey(), RandomUtil.UUID()) ;
+		session.setAttribute(securityContext.getSessionUserKey(), userDetail) ;
 		String value = CryptoUtil.getInstance().encryptAES(JsonUtil.toJson(userDetail) ) ;
-		System.out.println(value) ;
 		Cookie userCookie = new Cookie(securityContext.getCookieUserKey(), value) ;
 		userCookie.setPath("/") ;
 		if(isRemeberme){
