@@ -70,8 +70,8 @@ public class DefaultAuthentication implements Authentication {
 					userDetail = getUserDetailFromCookie(req);
 					
 					//if not login , redirect to the authenticate fail url 
-					AuthenticationResult authenticationResult = userDetailService.authenticate(userDetail) ;
-					if (authenticationResult.getStatus()  != 1) {
+					Authority authority = userDetailService.authenticate(userDetail) ;
+					if (authority.getStatus()  != 1) {
 						isPass = false ;
 					}
 //				check user has permission to access this url 

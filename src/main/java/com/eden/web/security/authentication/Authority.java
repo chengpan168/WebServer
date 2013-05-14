@@ -10,7 +10,7 @@ import com.eden.web.security.user.UserDetail;
  *  4：用户过期
  *  5：账户禁用
  */
-public class AuthenticationResult { 
+public class Authority { 
 	private int status = 1 ;
 	private UserDetail userDetail ;
 	

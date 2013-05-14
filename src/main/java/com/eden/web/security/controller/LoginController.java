@@ -19,7 +19,7 @@ import com.eden.util.JsonUtil;
 import com.eden.util.RandomUtil;
 import com.eden.util.WebUtil;
 import com.eden.web.security.SecurityContext;
-import com.eden.web.security.authentication.AuthenticationResult;
+import com.eden.web.security.authentication.Authority;
 import com.eden.web.security.user.UserDetail;
 import com.eden.web.security.user.UserDetailService;
 
@@ -46,7 +46,7 @@ public class LoginController {
 	public String login(ServletRequest request , ServletResponse response 
 			, @RequestParam(required=false) String userName , @RequestParam(required=false) String password , @RequestParam(required=false) String remeberMe){
 		Log.info("userName:" + userName + " ; password:" + password + "remeberMe:" + remeberMe) ;
-		AuthenticationResult authenticationResult = userDetailService.authenticate(userName , password) ;
+		Authority authenticationResult = userDetailService.authenticate(userName , password) ;
 		if(authenticationResult.getStatus() == 1){
 			putUser2SessionAndCookie((HttpServletRequest)request , (HttpServletResponse)response , authenticationResult.getUserDetail() ,  ConvertUtil.convert2Boolean(remeberMe , false) ) ;
 		} else {
