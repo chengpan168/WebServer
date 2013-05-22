@@ -1,6 +1,5 @@
 package com.eden.template;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 import java.util.Properties;
@@ -15,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class VelocityTemplate {
-	private static final long serialVersionUID = -5753280431375877990L;
 	private static Logger logger = LoggerFactory.getLogger(VelocityTemplate.class);
 
 	public static final String DEFAULT_ENCODING = "UTF-8";
@@ -64,7 +62,7 @@ public class VelocityTemplate {
 			e.printStackTrace();
 		} catch (ResourceNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
