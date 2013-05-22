@@ -112,7 +112,9 @@ public class Page implements Serializable , Cloneable{
 	}
 
 	public void setSortType(String sortType) {
-		this.sortType = sortType;
+		if("desc".equalsIgnoreCase(sortType) || "asc".equalsIgnoreCase(sortType)){
+			this.sortType = sortType;
+		}
 	}
 
 	public String getSortValue() {
