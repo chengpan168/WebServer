@@ -1,7 +1,5 @@
 package com.eden.dao.support.impl;
 
-import java.io.Serializable;
-import java.sql.Connection;
 import java.util.Collection;
 import java.util.List;
 

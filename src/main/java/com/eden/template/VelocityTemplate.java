@@ -7,9 +7,6 @@ import java.util.Properties;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,12 +53,6 @@ public class VelocityTemplate {
 			}
 				
 			return result;
-		} catch (ParseErrorException e) {
-			e.printStackTrace();
-		} catch (MethodInvocationException e) {
-			e.printStackTrace();
-		} catch (ResourceNotFoundException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
