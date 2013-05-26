@@ -13,6 +13,10 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
+import org.apache.ibatis.reflection.factory.ObjectFactory;
+import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
+import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import org.apache.ibatis.session.RowBounds;
 
 import com.eden.mybatis.dialect.Dialect;
@@ -22,7 +26,9 @@ import com.eden.mybatis.dialect.DialectFactory;
 		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
 public class PageInterceptor implements Interceptor {
 	private static final Log log = LogFactory.getLog(PageInterceptor.class);
-
+	private static final ObjectFactory OBJECT_FACTORY = new DefaultObjectFactory() ;
+	private static final ObjectWrapperFactory OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory() ;
+	
 	private String dialectType;
 	
 	private Dialect dialect  ;
@@ -41,7 +47,7 @@ public class PageInterceptor implements Interceptor {
 				.getTarget();
 		BoundSql boundSql = statementHandler.getBoundSql();
 		MetaObject metaStatementHandler = MetaObject
-				.forObject(statementHandler);
+				.forObject(statementHandler, OBJECT_FACTORY  ,  OBJECT_WRAPPER_FACTORY );
 		RowBounds rowBounds = (RowBounds) metaStatementHandler
 				.getValue("delegate.rowBounds");
 		if (rowBounds == null || rowBounds == RowBounds.DEFAULT) {

@@ -38,6 +38,13 @@ public class UtilTest extends BaseTest{
 		Role role1 = new Role() , role2 = new Role() ;
 		role1.setName("admin") ;role2.setName("user") ;
 		userDetail.setRoles(Arrays.asList(role1, role2)) ;
+		long start = System.currentTimeMillis() ;
+		int times = 10000 ;
+		while(times-- > 0 ) {
+			JsonUtil.toJson(userDetail) ;
+		}
+		print("jsonUtil 用时:" + (System.currentTimeMillis() - start) + " ms ") ;
+		
 		print(JsonUtil.toJson(userDetail)) ;
 		print(JsonUtil.fromJson(JsonUtil.toJson(userDetail) , UserDetail.class) ) ;
 	}
@@ -62,4 +69,5 @@ public class UtilTest extends BaseTest{
 	public void testDigit(){
 		print( (0xF0 & -123) >>> 4 ) ;
 	}
+	
 }
