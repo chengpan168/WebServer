@@ -6,13 +6,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.RowBounds;
-import org.springframework.stereotype.Repository;
 
 import com.eden.dao.support.DaoService;
 import com.eden.dao.support.EntityDao;
 import com.eden.dao.support.Page;
 
-@Repository("entityDao")
 public class DefaultEntityDao implements EntityDao{
 	
 	@Resource
@@ -62,12 +60,6 @@ public class DefaultEntityDao implements EntityDao{
 			rowBounds = new RowBounds(page.getTotal(), page.getPageCount()) ;
 		}
 		return selectList(statementId , page , rowBounds);
-	}
-
-
-	@Override
-	public int selectCount(String statementId, Page page) {
-		return daoService.selectOne(statementId, page) ;
 	}
 
 

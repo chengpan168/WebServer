@@ -13,7 +13,15 @@ import com.eden.web.security.user.UserDetail;
 public class UtilTest extends BaseTest{
 	@Test
 	public void testConvert(){
-		print(ConvertUtil.convert2Integer(new BigDecimal("2343548545464345") , 2)) ;
+		print("null --" + ConvertUtil.convert2Integer(null)) ;
+		print("2343548545464345 --" + ConvertUtil.convert2Integer(new BigDecimal("2343548545464345"))) ;
+		print("sfsdfdsfdsf--" + ConvertUtil.convert2Integer("sfsdfdsfdsf")) ;
+		print("23--" + ConvertUtil.convert2Integer("23")) ;
+		print("-23--" + ConvertUtil.convert2Integer("-23")) ;
+		print("324324.234324--" + ConvertUtil.convert2Integer("324324.234324")) ;
+		print("2343548545464345--" + ConvertUtil.convert2Integer(new BigDecimal("2343548545464345"))) ;
+		print("2343548545464345--" + ConvertUtil.convert2Integer(new BigDecimal("2343548545464345").intValue())) ;
+		print("2343548545464345--" + ConvertUtil.convert2Integer(new Short("4345"))) ;
 	}
 	
 	

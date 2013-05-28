@@ -7,13 +7,11 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
 
 import com.eden.dao.support.DaoService;
 import com.eden.dao.support.Page;
 
-@Repository
-public class MyBatisDAOService implements DaoService{
+public class MyBatisDaoService implements DaoService{
 
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate sqlSessionTemplate ;

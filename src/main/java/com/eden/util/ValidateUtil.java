@@ -308,7 +308,7 @@ public class ValidateUtil {
 	 * @param o
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public static boolean isImageFile(File f) {
 		if (f.exists()) {
 			try {

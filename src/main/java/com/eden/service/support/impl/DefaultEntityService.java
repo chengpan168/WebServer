@@ -1,6 +1,5 @@
 package com.eden.service.support.impl;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class DefaultEntityService implements EntityService {
 
 	@Override
 	public int selectCount(String statementId, Page page) {
-		return entityDao.selectCount(statementId, page) ;
+		return entityDao.selectOne(statementId, page) ;
 	}
 
 
