@@ -2,19 +2,9 @@ package com.eden.util;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
 
 
 public class CollectionUtil {
-	public static boolean isEmpty(Collection<? extends Object> collection) {
-		return collection == null?true:collection.isEmpty() ;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public static boolean isEmpty(Map map){
-		return map == null?true:map.isEmpty() ;
-	}
-	
 	public static String join(Collection<? extends Object> collection , String separator ) {
 		if(collection != null && collection.size() > 0){
 			StringBuilder sb = new StringBuilder()  ;

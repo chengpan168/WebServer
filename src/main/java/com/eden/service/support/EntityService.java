@@ -1,6 +1,5 @@
 package com.eden.service.support;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +21,12 @@ public interface EntityService {
 	
 	public <T> List<T> selectList(String statementId, Object parameters, RowBounds rowBounds);
 	
+	/**
+	 * 逻缉分页，物理分页使用selectList，在xml文件中加入pageHeader和pageFooter实现
+	 * @param statementId
+	 * @param page
+	 * @return
+	 */
 	public <T> List<T> selectPage(String statementId , Page page) ;
 	
 	public int selectCount(String statementId , Page page) ;

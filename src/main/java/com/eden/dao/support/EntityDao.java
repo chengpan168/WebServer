@@ -20,8 +20,6 @@ public interface EntityDao {
 	
 	public <T> List<T> selectPage(String statementId , Page page) ;
 	
-	public int selectCount(String statementId , Page page) ;
-
 /*------------------------------------------------分隔线---------------------------------------------------*/
 	
 	public int insert(String statement);

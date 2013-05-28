@@ -66,12 +66,6 @@ public class DefaultEntityDao implements EntityDao{
 
 
 	@Override
-	public int selectCount(String statementId, Page page) {
-		return daoService.selectOne(statementId, page) ;
-	}
-
-
-	@Override
 	public int insert(String statement) {
 		return daoService.insert(statement) ;
 	}

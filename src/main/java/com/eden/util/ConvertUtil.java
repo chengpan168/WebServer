@@ -20,7 +20,7 @@ public class ConvertUtil {
 	}
 	
 	/**
-	 * null 或不是整数，可大于int型  return null 
+	 * null 或不是整数，或大于int型  return null 
 	 * int型数字或字 符串  return integer
 	 * @param value
 	 * @return
@@ -28,7 +28,9 @@ public class ConvertUtil {
 	public static Integer convert2Integer(Object value) {
 		if(value==null) return  null ;
 		try{
-			return Integer.parseInt(value.toString()) ;
+			if(value instanceof Integer) return (Integer)value ;
+			else 
+				return Integer.parseInt(value.toString()) ;
 		} catch(Exception e) {
 			return null ;
 		}
