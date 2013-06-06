@@ -8,12 +8,12 @@
 
 	<property environment="env" />
 
-	<property name="web.home" value="./src/main/webapp" />
+	<property name="web.home" value="${basedir}/src/main/webapp" />
 	<property name="lib.home" value="${web.home}/WEB-INF/lib" />
 	<property name="build.home" value="${web.home}/WEB-INF/classes" />
-	<property name="src.home" value="./src/main" />
-	<property name="dist.home" value="./target" />
-	<property name="resources.home" value="./resources" />
+	<property name="src.home" value="${basedir}/src/main" />
+	<property name="dist.home" value="${basedir}/target" />
+	<property name="resources.home" value="${basedir}/resources" />
 
 	<property name="compile.debug" value="true" />
 	<property name="compile.deprecation" value="true" />
