@@ -2,6 +2,8 @@ package com.eden.util;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -76,6 +78,18 @@ public class UtilTest extends BaseTest{
 	@Test
 	public void testDigit(){
 		print( (0xF0 & -123) >>> 4 ) ;
+	}
+	
+	@Test
+	public void testClone(){
+		long start = System.currentTimeMillis() ;
+		Map<String, Object> m = new HashMap<>() ;
+		m.put("1",2) ;
+		for(int i = 0 ; i < 100 ; i++) {
+			Map<String, Object> m1 = BeanUtil.clone(m) ;
+			print(m1) ;
+		}
+		print("spend:" + (System.currentTimeMillis() - start) + " ms") ;
 	}
 	
 }

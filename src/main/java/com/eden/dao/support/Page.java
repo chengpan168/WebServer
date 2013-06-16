@@ -8,19 +8,30 @@ public class Page implements Serializable , Cloneable{
 	private static final long serialVersionUID = 1L;
 
 	private int start = 0; 
-	private int pageSize = 20; 
+	private int pageSize = 10; 
 	private int total = 0 ;
 	private int pageCount = 0 ; 
 	private int currPage = 1 ; 
 
-	private String findType; 
-	private String findValue; 
 	private String sortType = "desc"; 
 	private String sortValue; 
 
 	private Map<String, Object> queryMap ;
 	
 	public Page() {
+		queryMap = new HashMap<String , Object>() ;
+	}
+	
+	public Page(int maxResults, int firstResult, int totalRecords,
+			int pageCount, String findType, String findValue, String sortType,
+			String sortValue) {
+		this();
+		this.pageSize = maxResults;
+		this.start = firstResult;
+		this.total = totalRecords;
+		this.pageCount = pageCount;
+		this.sortType = sortType;
+		this.sortValue = sortValue;
 	}
 	
 	public void update(){
@@ -40,7 +51,7 @@ public class Page implements Serializable , Cloneable{
 			}
 		} else {
 			start = 0; 
-			pageSize = 20; 
+//			pageSize = 20; 
 			total = 0 ;
 			pageCount = 0 ; 
 			currPage = 0 ;
@@ -83,37 +94,13 @@ public class Page implements Serializable , Cloneable{
 		return pageCount;
 	}
 
-	public String getFindType() {
-		if (findValue != null)
-			findValue = findValue.trim();
-		return findType;
-	}
-
-	public void setFindType(String findType) {
-		if (findType != null)
-			findType = findType.trim();
-		this.findType = findType;
-	}
-
-	public String getFindValue() {
-		if (findValue != null)
-			findValue = findValue.trim();
-		return findValue;
-	}
-
-	public void setFindValue(String findValue) {
-		if (findValue != null)
-			findValue = findValue.trim();
-		this.findValue = findValue;
-	}
-
 	public String getSortType() {
 		return sortType;
 	}
 
-	public void setSortType(String sortType) {
-		if("desc".equalsIgnoreCase(sortType) || "asc".equalsIgnoreCase(sortType)){
-			this.sortType = sortType;
+	public void setSortType(String newSortType) {
+		if("desc".equalsIgnoreCase(newSortType) || "asc".equalsIgnoreCase(newSortType)){
+			this.sortType = newSortType;
 		}
 	}
 
@@ -121,22 +108,8 @@ public class Page implements Serializable , Cloneable{
 		return sortValue;
 	}
 
-	public void setSortValue(String sortValue) {
-		this.sortValue = sortValue;
-	}
-
-	public Page(int maxResults, int firstResult, int totalRecords,
-			int pageCount, String findType, String findValue, String sortType,
-			String sortValue) {
-		super();
-		this.pageSize = maxResults;
-		this.start = firstResult;
-		this.total = totalRecords;
-		this.pageCount = pageCount;
-		this.findType = findType;
-		this.findValue = findValue;
-		this.sortType = sortType;
-		this.sortValue = sortValue;
+	public void setSortValue(String newSortValue) {
+		this.sortValue = newSortValue;
 	}
 
 	public void setCurrPage(int currPage) {
@@ -152,10 +125,10 @@ public class Page implements Serializable , Cloneable{
 		page.pageCount = this.pageCount ;
 		page.currPage = this.currPage ;
 
-		page.findType = this.findType ;
-		page.findValue = this.findValue ;
 		page.sortType = this.sortType ;
 		page.sortValue = this.sortValue ;
+		
+		
 		return page ;
 	}
 
@@ -167,8 +140,18 @@ public class Page implements Serializable , Cloneable{
 		this.queryMap = queryMap;
 	}
 	
-	public void addQuery(String findType , Object findValue){
-		if(queryMap == null) queryMap = new HashMap<String , Object>() ;
+	public void setQueryValue(String findType , Object findValue){
 		queryMap.put(findType, findValue) ;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getQueryValue(String queryType){
+		return (T)queryMap.get(queryType) ;
+	}
+	
+	
+	public String getQueryType(){
+		if(queryMap.isEmpty()) return null ;
+		return (String)queryMap.keySet().toArray()[0] ;
 	}
 }
