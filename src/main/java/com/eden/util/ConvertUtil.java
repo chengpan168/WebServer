@@ -1,5 +1,13 @@
 package com.eden.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
+
 
 public class ConvertUtil {
 	
@@ -60,5 +68,16 @@ public class ConvertUtil {
 	public static Boolean convert2Boolean(Object value , Boolean defaultValue) {
 		Boolean result = convert2Boolean(value) ;
 		return result == null ? defaultValue : result ;
+	}
+	
+
+	private static String[] datePatterns = {"yyyy-dd-mm HH:MM:ss" , "yyyy-dd-mm"} ;
+	public Date	convert2Date(String dateStr) {
+		try {
+			return DateUtils.parseDate(dateStr, datePatterns) ;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null ;
 	}
 }
