@@ -3,6 +3,7 @@ package com.eden.util;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -74,6 +75,8 @@ public class ConvertUtil {
 	
 
 	public static Date convert2Date(String dateStr) {
+		if(StringUtils.isBlank(dateStr)) return null ;
+		
 		try {
 			return DateUtils.parseDate(dateStr, datePatterns) ;
 		} catch (ParseException e) {
