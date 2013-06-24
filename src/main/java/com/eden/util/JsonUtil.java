@@ -1,12 +1,12 @@
 package com.eden.util;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.eden.json.FastJson;
 
 public class JsonUtil {
-	private static ObjectMapper objectMapper = new ObjectMapper() ;
 	public static <T> T fromJson(String jsonStr , Class<T> clazz ) {
 		try {
-			return objectMapper.readValue(jsonStr , clazz) ;
+//			return JacksonMapper.fromJson(jsonStr, clazz) ;
+			return FastJson.fromJson(jsonStr ) ;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -15,7 +15,8 @@ public class JsonUtil {
 	
 	public static String toJson(Object obj) {
 		try {
-			return objectMapper.writeValueAsString(obj) ;
+//			return JacksonMapper.toJson(obj) ;
+			return FastJson.toJson(obj) ;
 		} catch (Exception e) {
 			e.printStackTrace() ;
 			return null ;

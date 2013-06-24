@@ -1,8 +1,10 @@
 package com.eden.util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -50,13 +52,19 @@ public class UtilTest extends BaseTest{
 		userDetail.setRoles(Arrays.asList(role1, role2)) ;
 		long start = System.currentTimeMillis() ;
 		int times = 10000 ;
+		List l = new ArrayList() ;
+		l.add(userDetail) ;
 		while(times-- > 0 ) {
-			JsonUtil.toJson(userDetail) ;
+//			JsonUtil.toJson(userDetail) ;
+			JsonUtil.toJson(l) ;
 		}
+//		JsonUtil.toJson(userDetail) ;
 		print("jsonUtil 用时:" + (System.currentTimeMillis() - start) + " ms ") ;
 		
-		print(JsonUtil.toJson(userDetail)) ;
-		print(JsonUtil.fromJson(JsonUtil.toJson(userDetail) , UserDetail.class) ) ;
+		print(JsonUtil.toJson(l)) ;
+//		print(JsonUtil.fromJson(JsonUtil.toJson(userDetail) , UserDetail.class) ) ;
+		List list = JsonUtil.fromJson(JsonUtil.toJson(l) , List.class) ;
+		print(list ) ;
 	}
 	
 	@Test
