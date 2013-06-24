@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.eden.log.Log;
+import com.eden.log.SLog;
 import com.eden.web.security.authentication.Authentication;
 
 public class SecurityFilter implements Filter {
@@ -33,7 +33,7 @@ public class SecurityFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 		ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(config.getServletContext()) ;
 		if(applicationContext == null ) {
-			Log.error("con't find spring applicationContext check you app") ;
+			SLog.error("con't find spring applicationContext check you app") ;
 			throw new RuntimeException("con't find spring applicationContext check you app") ;
 		}
 		authentication = (Authentication) applicationContext.getBean("authentication") ;

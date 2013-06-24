@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.eden.log.Log;
+import com.eden.log.SLog;
 import com.eden.util.ConvertUtil;
 import com.eden.util.CryptoUtil;
 import com.eden.util.JsonUtil;
@@ -43,7 +43,7 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String login(ServletRequest request , ServletResponse response 
 			, @RequestParam(required=false) String userName , @RequestParam(required=false) String password , @RequestParam(required=false) String remeberMe){
-		Log.info("userName:" + userName + " ; password:" + password + "remeberMe:" + remeberMe) ;
+		SLog.info("userName:" + userName + " ; password:" + password + "remeberMe:" + remeberMe) ;
 		Authority authenticationResult = userDetailService.authenticate(userName , password) ;
 		if(authenticationResult.getStatus() == 1){
 			putUser2SessionAndCookie((HttpServletRequest)request , (HttpServletResponse)response , authenticationResult.getUserDetail() ,  ConvertUtil.convert2Boolean(remeberMe , false) ) ;

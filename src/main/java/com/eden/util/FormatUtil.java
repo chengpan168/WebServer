@@ -2,7 +2,6 @@ package com.eden.util;
 
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

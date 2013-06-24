@@ -1,5 +1,5 @@
 package com.eden.constant;
 
-public class WSConstant {
+public class SConstant {
 	
 }
