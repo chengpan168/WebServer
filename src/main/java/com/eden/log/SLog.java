@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SLog {
-	private static final Logger logger = LoggerFactory.getLogger("Server") ;
+	private static final Logger logger = LoggerFactory.getLogger("server") ;
 	
 	public static void debug(String msg) {
 		logger.debug(msg) ;
